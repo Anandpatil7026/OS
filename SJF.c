@@ -52,7 +52,21 @@ void sjf(int processes[],int n,int burst_time[],int arrival_time[]) {
     printer(processes,n,burst_time,arrival_time);
 }
 void main() {
-    /*
+    
+    int n;
+    int quantum;
+    printf("Enter the number of processes: ");
+    scanf("%d",&n);
+    int processes[n],burst_time[n],arrival_time[n];
+    for (int i = 0; i < n; i++) {
+        printf("Enter the arrival time and burst time for process %d:",i+1);
+        scanf("%d%d",&arrival_time[i], &burst_time[i]);
+        processes[i]=i+1;
+    }
+    sjf(processes,n,burst_time,arrival_time);
+}
+
+/*
     Enter the number of processes: 3
     Enter the arrival time for process 1:2
     Enter the Burst time for processes 1:3
@@ -68,15 +82,3 @@ void main() {
     AVG waiting time: 1.666667
     AVG turnaround time: 7.000000
     */
-    int n;
-    int quantum;
-    printf("Enter the number of processes: ");
-    scanf("%d",&n);
-    int processes[n],burst_time[n],arrival_time[n];
-    for (int i = 0; i < n; i++) {
-        printf("Enter the arrival time and burst time for process %d:",i+1);
-        scanf("%d%d",&arrival_time[i], &burst_time[i]);
-        processes[i]=i+1;
-    }
-    sjf(processes,n,burst_time,arrival_time);
-}
