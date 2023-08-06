@@ -1,46 +1,37 @@
 #include<stdio.h>
-int main(){
-    /*
-    Enter the number of processes:3
-    Enter the Arrival Time & Burst Time: 2 3
-    Enter the Arrival Time & Burst Time: 5 6 
-    Enter the Arrival Time & Burst Time: 6 7
+#include<stdlib.h>
 
-    P Name  Arr time        Burs time       Start   TAT     Finish
-    P0      2               3               2               3               5
-    P1      5               6               5               6               11
-    P2      6               7               11              12              18
+int main()
+{
+    int RQ[100],i,n,TotalHeadMoment=0,initial;
+    printf("Enter the number of Requests\n");
+    scanf("%d",&n); 
+    printf("Enter the Requests sequence\n");
+    for(i=0;i<n;i++)
+        scanf("%d",&RQ[i]);
+    printf("Enter the initial head position\n");
+    scanf("%d",&initial);
 
-    Average Waiting time:1.666667
-    Average turn around time:7.000000
-    */
-    int arr[10],bur[10],star[10],finish[10],tat[10],wt[10],i,n;
-    int totwt=0,tottat=0;
-    printf("Enter the number of processes:");
-    scanf("%d",&n);
-    for(i=0;i<n;i++) {
-        printf("Enter the Arrival Time & Burst Time: ");
-        scanf("%d%d",&arr[i],&bur[i]);
+    //logic for fcfs disk scheduling
+
+    printf("Sequence of request acess:\n");
+    for(i=0;i<n;i++)
+    {
+        printf("%d ",RQ[i]);
+        TotalHeadMoment = TotalHeadMoment + abs(RQ[i]-initial);
+        initial = RQ[i];
     }
-    for(i=0;i<n;i++) {
-        if(i==0) {
-            star[i]=arr[i];
-            wt[i]=star[i]-arr[i];
-            finish[i]=star[i]+bur[i];
-            tat[i]=finish[i]-arr[i];
-        } else {
-            star[i]=finish[i-1];
-            wt[i]=star[i]-arr[i];
-            finish[i]=star[i]+bur[i];
-            tat[i]=finish[i]-arr[i];
-        }
-    }
-    printf("\nP Name\tArr time\tBurs time\tStart\tTAT\tFinish\n");
-    for(i=0;i<n;i++) {
-        printf("P%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",i,arr[i],bur[i],star[i],tat[i],finish[i]);
-        totwt+=wt[i];
-        tottat+=tat[i];
-    }
-    printf("\nAverage Waiting time: %f\n",(float)totwt/n);
-    printf("Average turn around time: %f\n",(float)tottat/n);
+    printf("\nTotal head moment is %d\n",TotalHeadMoment);
+    return 0;
 }
+
+/*Enter the number of Requests
+7
+Enter the Requests sequence
+82 170 43 140 24 16 190
+Enter the initial head position
+50
+Sequence of request acess:
+82 170 43 140 24 16 190 
+Total head moment is 642
+*/
